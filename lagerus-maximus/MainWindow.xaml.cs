@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace lagerus_maximus
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindowViewModel ViewModel => Resources["ViewModel"] as MainWindowViewModel;
+
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Initialize();
+        }
+
     }
 }

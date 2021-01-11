@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Eigene Dateien\\Dokumente\\Projekte\\Schule\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj": {}
+    "D:\\Users\\Melvin\\Source\\Repos\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj": {}
   },
   "projects": {
-    "D:\\Eigene Dateien\\Dokumente\\Projekte\\Schule\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj": {
+    "D:\\Users\\Melvin\\Source\\Repos\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Eigene Dateien\\Dokumente\\Projekte\\Schule\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj",
+        "projectUniqueName": "D:\\Users\\Melvin\\Source\\Repos\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj",
         "projectName": "lagerus-maximus",
-        "projectPath": "D:\\Eigene Dateien\\Dokumente\\Projekte\\Schule\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj",
-        "packagesPath": "C:\\Users\\Moritz\\.nuget\\packages\\",
-        "outputPath": "D:\\Eigene Dateien\\Dokumente\\Projekte\\Schule\\lagerus-maximus\\lagerus-maximus\\obj\\",
+        "projectPath": "D:\\Users\\Melvin\\Source\\Repos\\lagerus-maximus\\lagerus-maximus\\lagerus-maximus.csproj",
+        "packagesPath": "C:\\Users\\Melvin\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\Melvin\\Source\\Repos\\lagerus-maximus\\lagerus-maximus\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Moritz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Melvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -38,7 +37,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "MvvmLightLibs": {
+              "target": "Package",
+              "version": "[5.4.1.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -57,7 +61,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

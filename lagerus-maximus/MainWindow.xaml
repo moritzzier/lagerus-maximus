@@ -2,11 +2,46 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:lagerus_maximus"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" Loaded="MainWindow_Loaded">
 
+    <Window.Resources>
+        <local:MainWindowViewModel x:Key="ViewModel" ></local:MainWindowViewModel>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResource ResourceKey="ViewModel"></StaticResource>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel DockPanel.Dock="Top">
+        <Menu >
+            <MenuItem Header="_File">
+                <!--<MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />-->
+                    <MenuItem Header="_Exit" Click="exitMenuItem_Click"/>
+                </MenuItem>
+        </Menu>
+        
+            
+            
+        <ToolBarTray>
+            <ToolBar >
+                <Button Name="toolBarButtonAdd" Content="Add"  Command="{Binding Add}" ></Button>
+                <Button Name="toolBarButtonEdit" Content="Edit" Command="{Binding Edit}" ></Button>
+                <Button Name="toolBarButtonRemove" Content="Remove" Command="{Binding Remove}" ></Button>
+            </ToolBar>
+        </ToolBarTray>
+        </StackPanel>
     </Grid>
 </Window>
