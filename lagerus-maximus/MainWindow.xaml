@@ -16,19 +16,25 @@
     </Window.DataContext>
     
     
-    <StackPanel DockPanel.Dock="Top">
-        <Menu >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <!--<MenuItem Header="_New" />
                 <MenuItem Header="_Open" />
                 <MenuItem Header="_Save" />
                 <Separator />-->
-                    <!--<MenuItem Header="_Exit" />-->
+                    <MenuItem Header="_Exit" Command="{Binding CloseCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_About" ></MenuItem>
         </Menu>
-            
-        <ToolBarTray>
+
+        <ToolBarTray Grid.Row="1">
             <ToolBar >
                 <Button Name="toolBarButtonAdd" Content="Add"  Command="{Binding AddCommand}" ></Button>
                 <Button Name="toolBarButtonEdit" Content="Edit" Command="{Binding EditCommand}" ></Button>
@@ -36,32 +42,44 @@
             </ToolBar>
         </ToolBarTray>
 
-        <Grid>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-            <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding SelectedCollection}">
-                 
-            </ListBox>
 
-            <ComboBox Name="comboBoxFilter" Grid.Column="1" ItemsSource="{Binding FilterCollection}" >
-                <ie:Interaction.Triggers>
-                    <ie:EventTrigger EventName="SelectionChanged">
-                        <ie:InvokeCommandAction Command="{Binding SelectedFilterChangedCommand}"  CommandParameter="{Binding ElementName=comboBoxFilter, Path=SelectedItem}"/>
-                    </ie:EventTrigger>
-                </ie:Interaction.Triggers>
-            </ComboBox>
-            
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding SelectedCollection}">
+
+                </ListBox>
+
+            </Grid>
+
+
+            <Grid Grid.Column="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ComboBox Name="comboBoxFilter" Grid.Column="1" Margin="3" SelectedItem="{Binding SelectedFilter}" ItemsSource="{Binding FilterCollection}" >
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding SelectedFilterChangedCommand}"  CommandParameter="{Binding ElementName=comboBoxFilter, Path=SelectedItem}"/>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
+                </ComboBox>
+
+            </Grid>
         </Grid>
-        
-    </StackPanel>
+
+    </Grid>
     
     
 </Window>

@@ -10,13 +10,26 @@ using System.Windows.Input;
 
 namespace lagerus_maximus
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged , ICloseWindow
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string m_selectedFilter = "All";
+
+        public string SelectedFilter
+        {
+            get => m_selectedFilter;
+
+            set
+            {
+                m_selectedFilter = value;
+                OnPropertyChanged();
+            }
         }
 
         public ObservableCollection<string> m_categoryCollection = new ObservableCollection<string>();
@@ -80,11 +93,14 @@ namespace lagerus_maximus
         }
 
         private AddItemView m_addItemView = new AddItemView();
+        private EditItemView m_editItemView = new EditItemView();
 
 
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
+        public ICommand CloseCommand { get; }
+
 
         public ICommand SelectedFilterChangedCommand { get; }
 
@@ -93,6 +109,8 @@ namespace lagerus_maximus
             AddCommand = new DelegateCommand<Item>(OnAddItem);
             EditCommand = new DelegateCommand<Item>(OnEditItem);
             RemoveCommand = new DelegateCommand<Item>(OnRemoveItem);
+            CloseCommand = new DelegateCommand(OnClose);
+
             SelectedFilterChangedCommand = new DelegateCommand<string>(OnSelectedFilterChanged);
             CategoryCollection =  new ObservableCollection<string>() { "TEST", "Salben","Tabletten","Pillen", "Zäpfchen","Tee","Sonstige" };
 
@@ -111,17 +129,19 @@ namespace lagerus_maximus
 
         public void OnAddItem(Item item)
         {
-            m_addItemView = new AddItemView();            
+            m_addItemView = new AddItemView();
             m_addItemView.ViewModel.CategoryCollection = CategoryCollection;
             m_addItemView.ShowDialog();
 
-            if(m_addItemView.ViewModel.WindowClose == true)
+            if (m_addItemView.ViewModel.WindowClose == true)
             {
                 return;
             }
 
             CompleteCollection.Add(m_addItemView.ViewModel.Item);
+            m_addItemView.Close();
             CompleteCollection = CompleteCollection;
+            OnSelectedFilterChanged(SelectedFilter);
         }
 
         public void OnSelectedFilterChanged(string filter)
@@ -150,8 +170,21 @@ namespace lagerus_maximus
         {
             if (item != null)
             {
-                   // Warehouse.EditItem(Item);
-                
+                // Warehouse.EditItem(Item);
+                m_editItemView = new EditItemView();
+                m_editItemView.ViewModel.CategoryCollection = CategoryCollection;
+
+                m_editItemView.ShowDialog();
+
+                if (m_editItemView.ViewModel.WindowClose == true)
+                {
+                    return;
+                }
+
+                CompleteCollection.Add(m_editItemView.ViewModel.Item);
+                m_editItemView.Close();
+                CompleteCollection = CompleteCollection;
+                OnSelectedFilterChanged(SelectedFilter);
             }
             else
             {
@@ -172,6 +205,19 @@ namespace lagerus_maximus
             {
                 MessageBox.Show($"Please select an item to remove.", "No item found", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public void OnClose()
+        {
+            Close?.Invoke();
+        }
+
+
+        public Action Close { get; set; }
+
+        public bool CanClose()
+        {
+            return false;
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace lagerus_maximus
 {
-    public class AddItemViewModel : INotifyPropertyChanged , ICloseWindow
+    public class EditItemViewModel : INotifyPropertyChanged, ICloseWindow
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -18,7 +18,7 @@ namespace lagerus_maximus
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ObservableCollection<string> m_categoryCollection = new ObservableCollection<string>(); 
+        public ObservableCollection<string> m_categoryCollection = new ObservableCollection<string>();
         /// <summary>
         /// All available Categorys
         /// </summary>
@@ -51,7 +51,7 @@ namespace lagerus_maximus
         public ICommand AddItemCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public AddItemViewModel()
+        public EditItemViewModel()
         {
             AddItemCommand = new DelegateCommand(OnAddItem);
             CancelCommand = new DelegateCommand(OnCancelItem);
@@ -59,7 +59,7 @@ namespace lagerus_maximus
 
         public void OnAddItem()
         {
-            if(CheckItemInputValid())
+            if (CheckItemInputValid())
             {
                 WindowClose = false;
                 Close?.Invoke();
@@ -85,7 +85,7 @@ namespace lagerus_maximus
                 checkResult = false;
             }
 
-            if (0>= Item.Quantity)
+            if (0 >= Item.Quantity)
             {
                 output += $"Please enter the quantity of the item.\n\n";
                 checkResult = false;
@@ -103,7 +103,7 @@ namespace lagerus_maximus
                 checkResult = false;
             }
 
-            if(!checkResult)
+            if (!checkResult)
             {
                 MessageBox.Show(output, "Item could not be added.", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -117,7 +117,5 @@ namespace lagerus_maximus
         {
             return false;
         }
-
-
     }
 }
