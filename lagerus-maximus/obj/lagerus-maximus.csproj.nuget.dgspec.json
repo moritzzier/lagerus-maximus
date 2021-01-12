@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.VisualStudio.Utilities": {
+              "target": "Package",
+              "version": "[16.7.30329.38, )"
+            },
             "MvvmLightLibs": {
               "target": "Package",
               "version": "[5.4.1.1, )"
@@ -56,6 +60,9 @@
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
             },
             "Microsoft.WindowsDesktop.App.WPF": {
               "privateAssets": "none"

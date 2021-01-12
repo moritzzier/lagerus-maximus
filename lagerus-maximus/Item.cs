@@ -4,7 +4,7 @@ using System.Text;
 
 namespace lagerus_maximus
 {
-    class Item
+    public class Item
     {
         public string Name { get; set; }
 

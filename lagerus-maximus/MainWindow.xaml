@@ -15,33 +15,40 @@
         <StaticResource ResourceKey="ViewModel"></StaticResource>
     </Window.DataContext>
     
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <StackPanel DockPanel.Dock="Top">
+    
+    <StackPanel DockPanel.Dock="Top">
         <Menu >
             <MenuItem Header="_File">
                 <!--<MenuItem Header="_New" />
                 <MenuItem Header="_Open" />
                 <MenuItem Header="_Save" />
                 <Separator />-->
-                    <MenuItem Header="_Exit" Click="exitMenuItem_Click"/>
+                    <!--<MenuItem Header="_Exit" />-->
                 </MenuItem>
+                <MenuItem Header="_About" ></MenuItem>
         </Menu>
-        
-            
             
         <ToolBarTray>
             <ToolBar >
-                <Button Name="toolBarButtonAdd" Content="Add"  Command="{Binding Add}" ></Button>
-                <Button Name="toolBarButtonEdit" Content="Edit" Command="{Binding Edit}" ></Button>
-                <Button Name="toolBarButtonRemove" Content="Remove" Command="{Binding Remove}" ></Button>
+                <Button Name="toolBarButtonAdd" Content="Add"  Command="{Binding AddCommand}" ></Button>
+                <Button Name="toolBarButtonEdit" Content="Edit" Command="{Binding EditCommand}" ></Button>
+                <Button Name="toolBarButtonRemove" Content="Remove" Command="{Binding RemoveCommand}" ></Button>
             </ToolBar>
         </ToolBarTray>
-        </StackPanel>
-    </Grid>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <ListBox Grid.Row="0" ItemsSource="{Binding SelectedCollection}">
+                 
+            </ListBox>
+            
+        </Grid>
+        
+    </StackPanel>
+    
+    
 </Window>
