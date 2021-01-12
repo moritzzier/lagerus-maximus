@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-        xmlns:local="clr-namespace:lagerus_maximus"
+        xmlns:local="clr-namespace:lagerus_maximus" xmlns:ie="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="MainWindow_Loaded">
 
@@ -41,10 +41,23 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             
-            <ListBox Grid.Row="0" ItemsSource="{Binding SelectedCollection}">
+            <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding SelectedCollection}">
                  
             </ListBox>
+
+            <ComboBox Name="comboBoxFilter" Grid.Column="1" ItemsSource="{Binding FilterCollection}" >
+                <ie:Interaction.Triggers>
+                    <ie:EventTrigger EventName="SelectionChanged">
+                        <ie:InvokeCommandAction Command="{Binding SelectedFilterChangedCommand}"  CommandParameter="{Binding ElementName=comboBoxFilter, Path=SelectedItem}"/>
+                    </ie:EventTrigger>
+                </ie:Interaction.Triggers>
+            </ComboBox>
             
         </Grid>
         

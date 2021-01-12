@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace lagerus_maximus
 {
-    public class AddItemViewModel : INotifyPropertyChanged
+    public class AddItemViewModel : INotifyPropertyChanged , ICloseWindow
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -32,6 +32,8 @@ namespace lagerus_maximus
                 OnPropertyChanged();
             }
         }
+
+        public bool WindowClose = false;
 
         private Item m_Item = new Item();
 
@@ -55,7 +57,16 @@ namespace lagerus_maximus
 
         public void MACH()
         {
+            WindowClose = false;
+            Close?.Invoke();
+        }
 
+
+        public Action Close { get; set; }
+
+        public bool CanClose()
+        {
+            return false;
         }
 
 

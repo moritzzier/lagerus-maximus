@@ -49,6 +49,36 @@ namespace lagerus_maximus
             }
         }
 
+        private ObservableCollection<Item> m_completeCollection = new ObservableCollection<Item>();
+        /// <summary>
+        /// hat alle items, zu jeder zeit, nie entfernen auser remove befeh. danke
+        /// </summary>
+        public ObservableCollection<Item> CompleteCollection
+        {
+            get => m_completeCollection;
+
+            set
+            {
+                m_completeCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<string> m_filterCollection = new ObservableCollection<string>();
+        /// <summary>
+        /// beinhaltet die filter nachdenen ...naja...gefilter wird
+        /// </summary>
+        public ObservableCollection<string> FilterCollection
+        {
+            get => m_filterCollection;
+
+            set
+            {
+                m_filterCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
         private AddItemView m_addItemView = new AddItemView();
 
 
@@ -56,11 +86,22 @@ namespace lagerus_maximus
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
 
+        public ICommand SelectedFilterChangedCommand { get; }
+
         public MainWindowViewModel()
         {
             AddCommand = new DelegateCommand<Item>(OnAddItem);
             EditCommand = new DelegateCommand<Item>(OnEditItem);
             RemoveCommand = new DelegateCommand<Item>(OnRemoveItem);
+            SelectedFilterChangedCommand = new DelegateCommand<string>(OnSelectedFilterChanged);
+            CategoryCollection =  new ObservableCollection<string>() { "TEST", "Salben","Tabletten","Pillen", "Zäpfchen","Tee","Sonstige" };
+
+            foreach(string s in CategoryCollection)
+            {
+                FilterCollection.Add(s);
+            }            
+            FilterCollection.Insert(0, "All");
+            OnSelectedFilterChanged("All");
         }
 
         public void Initialize()
@@ -70,10 +111,39 @@ namespace lagerus_maximus
 
         public void OnAddItem(Item item)
         {
-            m_addItemView = new AddItemView();
-            CategoryCollection.Add("TEST");
+            m_addItemView = new AddItemView();            
             m_addItemView.ViewModel.CategoryCollection = CategoryCollection;
-            m_addItemView.Show();
+            m_addItemView.ShowDialog();
+
+            if(m_addItemView.ViewModel.WindowClose == true)
+            {
+                return;
+            }
+
+            CompleteCollection.Add(m_addItemView.ViewModel.Item);
+            CompleteCollection = CompleteCollection;
+        }
+
+        public void OnSelectedFilterChanged(string filter)
+        {
+            SelectedCollection.Clear();
+
+            foreach (Item item in CompleteCollection)
+            {
+                if (item.Category == filter)
+                {
+                    SelectedCollection.Add(item);
+                }
+            }
+
+
+            if (filter == "All")
+            {
+                foreach (Item item in CompleteCollection)
+                {
+                    SelectedCollection.Add(item);
+                }
+            }
         }
 
         public void OnEditItem(Item item)

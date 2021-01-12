@@ -13,5 +13,10 @@ namespace lagerus_maximus
         public string Category { get; set; }
 
         public int ItemNumber { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
