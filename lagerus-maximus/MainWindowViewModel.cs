@@ -73,6 +73,7 @@ namespace lagerus_maximus
             set
             {
                 m_completeCollection = value;
+                OnSelectedFilterChanged(SelectedFilter);
                 OnPropertyChanged();
             }
         }
@@ -92,8 +93,9 @@ namespace lagerus_maximus
             }
         }
 
-        private AddItemView m_addItemView = new AddItemView();
-        private EditItemView m_editItemView = new EditItemView();
+        private AddItemView m_addItemView;
+        private EditItemView m_editItemView;
+        private XmlReaderWriter m_xmlReaderWriter = new XmlReaderWriter();
 
 
         public ICommand AddCommand { get; }
@@ -124,7 +126,7 @@ namespace lagerus_maximus
 
         public void Initialize()
         {
-
+            CompleteCollection = m_xmlReaderWriter.LoadData();
         }
 
         public void OnAddItem(Item item)
@@ -170,10 +172,12 @@ namespace lagerus_maximus
         {
             if (item != null)
             {
-                // Warehouse.EditItem(Item);
+
+                Item unEditedItem = item;
+
                 m_editItemView = new EditItemView();
                 m_editItemView.ViewModel.CategoryCollection = CategoryCollection;
-
+                m_editItemView.ViewModel.Item = new Item(item);
                 m_editItemView.ShowDialog();
 
                 if (m_editItemView.ViewModel.WindowClose == true)
@@ -181,10 +185,9 @@ namespace lagerus_maximus
                     return;
                 }
 
-                CompleteCollection.Add(m_editItemView.ViewModel.Item);
-                m_editItemView.Close();
+                CompleteCollection[CompleteCollection.IndexOf(unEditedItem)]=m_editItemView.ViewModel.Item;
                 CompleteCollection = CompleteCollection;
-                OnSelectedFilterChanged(SelectedFilter);
+                m_editItemView.Close();                                
             }
             else
             {
@@ -198,7 +201,8 @@ namespace lagerus_maximus
             {
                 if(MessageBoxResult.Yes == MessageBox.Show($"Are you sure you want to remove the item(s) {item.Name} permanently?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning))
                 {
-                    //Warehouse.RemoveItem(Item);
+                    CompleteCollection.Remove(item);
+                    CompleteCollection = CompleteCollection;
                 }
             }
             else
@@ -209,6 +213,7 @@ namespace lagerus_maximus
 
         public void OnClose()
         {
+            m_xmlReaderWriter.SaveData(CompleteCollection);
             Close?.Invoke();
         }
 

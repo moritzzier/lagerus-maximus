@@ -37,8 +37,8 @@
         <ToolBarTray Grid.Row="1">
             <ToolBar >
                 <Button Name="toolBarButtonAdd" Content="Add"  Command="{Binding AddCommand}" ></Button>
-                <Button Name="toolBarButtonEdit" Content="Edit" Command="{Binding EditCommand}" ></Button>
-                <Button Name="toolBarButtonRemove" Content="Remove" Command="{Binding RemoveCommand}" ></Button>
+                <Button Name="toolBarButtonEdit" Content="Edit" Command="{Binding EditCommand}"  CommandParameter="{Binding ElementName=itemsListView, Path=SelectedItem}"></Button>
+                <Button Name="toolBarButtonRemove" Content="Remove" Command="{Binding RemoveCommand}"  CommandParameter="{Binding ElementName=itemsListView, Path=SelectedItem}"></Button>
             </ToolBar>
         </ToolBarTray>
 
@@ -55,9 +55,20 @@
                     <RowDefinition Height="0"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding SelectedCollection}">
+                <ListView Name="itemsListView"  Grid.Row="0" Grid.Column="0" ItemsSource="{Binding SelectedCollection}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name"  Width="120" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Quantity"  Width="120" DisplayMemberBinding="{Binding Quantity}" />
+                            <GridViewColumn Header="Catergorie"  Width="120" DisplayMemberBinding="{Binding Category}" />
+                            <GridViewColumn Header="ItemNumber" Width="120" DisplayMemberBinding="{Binding ItemNumber}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                <!--<ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding SelectedCollection}">
 
-                </ListBox>
+                </ListBox>-->
 
             </Grid>
 

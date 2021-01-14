@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Item>
+    <Name>Ja</Name>
+    <Quantity>1230</Quantity>
+    <Category>Tabletten</Category>
+    <ItemNumber>1337</ItemNumber>
+  </Item>
+  <Item>
+    <Name>Nein</Name>
+    <Quantity>12321</Quantity>
+    <Category>Pillen</Category>
+    <ItemNumber>6969</ItemNumber>
+  </Item>
+  <Item>
+    <Name>Vielleicht</Name>
+    <Quantity>131</Quantity>
+    <Category>Zäpfchen</Category>
+    <ItemNumber>80085</ItemNumber>
+  </Item>
+</ArrayOfItem>

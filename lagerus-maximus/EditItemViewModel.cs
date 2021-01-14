@@ -48,16 +48,16 @@ namespace lagerus_maximus
             }
         }
 
-        public ICommand AddItemCommand { get; }
+        public ICommand SaveChangesCommand { get; }
         public ICommand CancelCommand { get; }
 
         public EditItemViewModel()
         {
-            AddItemCommand = new DelegateCommand(OnAddItem);
+            SaveChangesCommand = new DelegateCommand(OnSaveChanges);
             CancelCommand = new DelegateCommand(OnCancelItem);
         }
 
-        public void OnAddItem()
+        public void OnSaveChanges()
         {
             if (CheckItemInputValid())
             {

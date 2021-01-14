@@ -18,5 +18,21 @@ namespace lagerus_maximus
         {
             return Name;
         }
+
+        public Item()
+        {
+
+        }
+
+        public Item(Item item)
+        {
+            Name = item.Name;
+            Quantity = item.Quantity;
+            Category= item.Category;
+            ItemNumber = item.ItemNumber;
+
+        }
+
+
     }
 }

@@ -30,7 +30,15 @@ namespace lagerus_maximus
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.Initialize();
+            if (DataContext is ICloseWindow vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                };
+            }
+
+            ViewModel.Initialize();            
         }
 
     }
