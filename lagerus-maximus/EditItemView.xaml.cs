@@ -21,6 +21,8 @@ namespace lagerus_maximus
 
         public EditItemView()
         {
+            Owner = Application.Current.MainWindow;
+
             InitializeComponent();
         }
 

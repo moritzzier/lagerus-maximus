@@ -238,7 +238,6 @@ D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\bin\Debug\netcor
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\bin\Debug\netcoreapp3.1\zh-Hans\StreamJsonRpc.resources.dll
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\bin\Debug\netcoreapp3.1\zh-Hant\StreamJsonRpc.resources.dll
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Management.dll
-D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\lagerus-maximus.csprojAssemblyReference.cache
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\AddItemView.baml
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\EditItemView.baml
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\MainWindow.baml
@@ -250,3 +249,6 @@ D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcor
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\lagerus-maximus.dll
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\lagerus-maximus.pdb
 D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\lagerus-maximus.genruntimeconfig.cache
+D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\AboutView.g.cs
+D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\AboutView.baml
+D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\lagerus-maximus.csprojAssemblyReference.cache

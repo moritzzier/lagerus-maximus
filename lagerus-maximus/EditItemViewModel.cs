@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,11 +51,28 @@ namespace lagerus_maximus
 
         public ICommand SaveChangesCommand { get; }
         public ICommand CancelCommand { get; }
+        public ICommand LoadImageCommand { get; }
 
         public EditItemViewModel()
         {
             SaveChangesCommand = new DelegateCommand(OnSaveChanges);
             CancelCommand = new DelegateCommand(OnCancelItem);
+            LoadImageCommand = new DelegateCommand(OnLoadImage);
+        }
+
+        
+
+
+        public void OnLoadImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Item.ImagePath = openFileDialog.FileName;
+                Item = Item;
+            }
         }
 
         public void OnSaveChanges()

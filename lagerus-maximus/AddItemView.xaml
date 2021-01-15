@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lagerus_maximus" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="AddItem" Height="450" Width="800">
+        Title="Add Item" Height="450" Width="800" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
 
     <Window.Resources>
         <local:AddItemViewModel x:Key="ViewModel" ></local:AddItemViewModel>
@@ -50,11 +50,25 @@
             <ComboBox  Grid.Row="5"  Name="categoryTextBox"  Height="25"   Margin="3" SelectedItem="{Binding Item.Category}" ItemsSource="{Binding CategoryCollection}"></ComboBox>
 
             <TextBlock  Grid.Row="6" Name="itemNumberTextBlock" Height="25"  Margin="3" Text="Item Number:" IsManipulationEnabled="False">></TextBlock>
-            <TextBox  Grid.Row="7" Name="itemNumberTextBox" Height="25"  Margin="3" Text="{Binding Item.ItemNumber}"></TextBox>
-            
+            <TextBox  Grid.Row="7" Name="itemNumberTextBox" Height="25"  Margin="3" Text="{Binding Item.ItemNumber}"></TextBox>            
 
         </Grid>
 
+        <Grid Grid.Column="1" Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Image Grid.Row="0" Height="200" Margin="5" Source="{Binding Item.ImagePath}">
+                
+            </Image>
+            <Button Grid.Row="1" Height="25" Width="150" Padding="3" Margin="5" Content="Load Image" Command="{Binding LoadImageCommand}" ></Button>
+            <!--<TextBox Grid.Row="1" Height="25" Padding="3" Margin="3" Text="{Binding Item.ImagePath}" ></TextBox>-->
+            
+        </Grid>
+        
         <Grid  Grid.Row="100" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

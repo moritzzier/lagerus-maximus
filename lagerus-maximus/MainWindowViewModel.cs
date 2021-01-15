@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -19,6 +20,11 @@ namespace lagerus_maximus
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        
+
+        string m_missingImagePath = "MissingImage.png";
+        string m_imageDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Images");
+
         public string m_selectedFilter = "All";
 
         public string SelectedFilter
@@ -28,7 +34,7 @@ namespace lagerus_maximus
             set
             {
                 m_selectedFilter = value;
-                OnPropertyChanged();
+                OnPropertyChanged();                
             }
         }
 
@@ -95,6 +101,7 @@ namespace lagerus_maximus
 
         private AddItemView m_addItemView;
         private EditItemView m_editItemView;
+        private AboutView m_aboutView;
         private XmlReaderWriter m_xmlReaderWriter = new XmlReaderWriter();
 
 
@@ -102,6 +109,7 @@ namespace lagerus_maximus
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
         public ICommand CloseCommand { get; }
+        public ICommand AboutCommand { get; }
 
 
         public ICommand SelectedFilterChangedCommand { get; }
@@ -112,6 +120,7 @@ namespace lagerus_maximus
             EditCommand = new DelegateCommand<Item>(OnEditItem);
             RemoveCommand = new DelegateCommand<Item>(OnRemoveItem);
             CloseCommand = new DelegateCommand(OnClose);
+            AboutCommand = new DelegateCommand(OnAbout);
 
             SelectedFilterChangedCommand = new DelegateCommand<string>(OnSelectedFilterChanged);
             CategoryCollection =  new ObservableCollection<string>() { "TEST", "Salben","Tabletten","Pillen", "Zäpfchen","Tee","Sonstige" };
@@ -127,11 +136,25 @@ namespace lagerus_maximus
         public void Initialize()
         {
             CompleteCollection = m_xmlReaderWriter.LoadData();
+
+            var path = System.IO.Path.GetDirectoryName(
+      System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+            path = path.Substring(6);
+
+            foreach (Item item in CompleteCollection)
+            {
+                if (!File.Exists(item.ImagePath))
+                {
+                    item.ImagePath = Path.Combine(m_imageDirectory,m_missingImagePath);
+                }
+            }
         }
 
         public void OnAddItem(Item item)
         {
             m_addItemView = new AddItemView();
+            m_addItemView.ViewModel.Item = new Item();
             m_addItemView.ViewModel.CategoryCollection = CategoryCollection;
             m_addItemView.ShowDialog();
 
@@ -166,6 +189,19 @@ namespace lagerus_maximus
                     SelectedCollection.Add(item);
                 }
             }
+        }
+
+        
+
+        public void OnAbout()
+        {
+                m_aboutView = new AboutView();
+                
+                
+                m_aboutView.ShowDialog();
+
+
+                m_aboutView.Close();
         }
 
         public void OnEditItem(Item item)
