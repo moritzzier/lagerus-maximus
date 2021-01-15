@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\
+D:\Users\Melvin\Source\Repos\lagerus-maximus\lagerus-maximus\obj\Debug\netcoreapp3.1\
 lagerus_maximus
 none
 false
-TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\App.xaml
+TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
+D:\Users\Melvin\Source\Repos\lagerus-maximus\lagerus-maximus\App.xaml
 3-25663994
 
 14-1462082934
-217589694293
+2171718368227
 AddItemView.xaml;EditItemView.xaml;MainWindow.xaml;
 
 False
