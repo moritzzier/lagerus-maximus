@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lagerus_maximus"
         mc:Ignorable="d"
-        Title="EditItemView" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Edit Item" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" >
 
     <Window.Resources>
         <local:EditItemViewModel x:Key="ViewModel" ></local:EditItemViewModel>

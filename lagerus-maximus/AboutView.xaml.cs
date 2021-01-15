@@ -13,29 +13,28 @@ using System.Windows.Shapes;
 namespace lagerus_maximus
 {
     /// <summary>
-    /// Interaktionslogik für AddItem.xaml
+    /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class AddItemView : Window
+    public partial class AboutView : Window
     {
-        public AddItemViewModel ViewModel => Resources["ViewModel"] as AddItemViewModel;
+        public AboutViewModel ViewModel => Resources["ViewModel"] as AboutViewModel;
 
-        public AddItemView()
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            Owner = Application.Current.MainWindow;
-            InitializeComponent();
-            Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e )
-        {
-            if(DataContext is ICloseWindow vm)
+            if (DataContext is ICloseWindow vm)
             {
                 vm.Close += () =>
                 {
                     this.Close();
                 };
             }
+        }
+
+        public AboutView()
+        {
+            Owner = Application.Current.MainWindow;
+
+            InitializeComponent();
         }
     }
 }

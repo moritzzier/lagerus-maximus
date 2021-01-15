@@ -95,6 +95,7 @@ namespace lagerus_maximus
 
         private AddItemView m_addItemView;
         private EditItemView m_editItemView;
+        private AboutView m_aboutView;
         private XmlReaderWriter m_xmlReaderWriter = new XmlReaderWriter();
 
 
@@ -102,6 +103,7 @@ namespace lagerus_maximus
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
         public ICommand CloseCommand { get; }
+        public ICommand AboutCommand { get; }
 
 
         public ICommand SelectedFilterChangedCommand { get; }
@@ -112,6 +114,7 @@ namespace lagerus_maximus
             EditCommand = new DelegateCommand<Item>(OnEditItem);
             RemoveCommand = new DelegateCommand<Item>(OnRemoveItem);
             CloseCommand = new DelegateCommand(OnClose);
+            AboutCommand = new DelegateCommand(OnAbout);
 
             SelectedFilterChangedCommand = new DelegateCommand<string>(OnSelectedFilterChanged);
             CategoryCollection =  new ObservableCollection<string>() { "TEST", "Salben","Tabletten","Pillen", "Zäpfchen","Tee","Sonstige" };
@@ -166,6 +169,19 @@ namespace lagerus_maximus
                     SelectedCollection.Add(item);
                 }
             }
+        }
+
+        
+
+        public void OnAbout()
+        {
+                m_aboutView = new AboutView();
+                
+                
+                m_aboutView.ShowDialog();
+
+
+                m_aboutView.Close();
         }
 
         public void OnEditItem(Item item)
