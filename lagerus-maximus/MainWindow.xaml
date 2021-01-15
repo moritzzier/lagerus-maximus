@@ -111,6 +111,10 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
+                    <Image Grid.Row="0" Grid.ColumnSpan="2" Height="200" Width="auto" Margin="5" Source="{Binding ElementName=itemsListView,Path=SelectedItem.ImagePath}">
+
+                    </Image>
+
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Name:" Margin="3" ></TextBlock>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Quantity:" Margin="3" ></TextBlock>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Category:" Margin="3" ></TextBlock>

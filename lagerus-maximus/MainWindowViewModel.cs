@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,9 @@ namespace lagerus_maximus
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        string m_missingImagePath = "";
+        string m_imageDirectory = "";
 
         public string m_selectedFilter = "All";
 
@@ -130,11 +134,20 @@ namespace lagerus_maximus
         public void Initialize()
         {
             CompleteCollection = m_xmlReaderWriter.LoadData();
+
+            foreach(Item item in CompleteCollection)
+            {
+                if (!File.Exists(item.ImagePath))
+                {
+                    item.ImagePath = Path.Combine(m_imageDirectory,m_missingImagePath);
+                }
+            }
         }
 
         public void OnAddItem(Item item)
         {
             m_addItemView = new AddItemView();
+            m_addItemView.ViewModel.Item = new Item();
             m_addItemView.ViewModel.CategoryCollection = CategoryCollection;
             m_addItemView.ShowDialog();
 

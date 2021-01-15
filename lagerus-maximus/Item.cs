@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Text;
+using System.Windows.Media.Imaging;
 
 namespace lagerus_maximus
 {
     public class Item
     {
+        //public BitmapImage Image { get; set; } 
+
+        public string ImagePath { get; set; }
+
         public string Name { get; set; }
 
         public int Quantity { get; set; }
@@ -21,7 +28,9 @@ namespace lagerus_maximus
 
         public Item()
         {
-
+            ImagePath = @"D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\Images\MissingImage.png";
+                //new BitmapImage(new Uri(@"D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\Images\MissingImage.png"));
+                //                new Bitmap(@"D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\Images\MissingImage.png");
         }
 
         public Item(Item item)
@@ -30,6 +39,10 @@ namespace lagerus_maximus
             Quantity = item.Quantity;
             Category= item.Category;
             ItemNumber = item.ItemNumber;
+
+
+
+            ImagePath = item.ImagePath;
 
         }
 
