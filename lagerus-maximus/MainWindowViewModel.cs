@@ -20,8 +20,10 @@ namespace lagerus_maximus
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        string m_missingImagePath = "";
-        string m_imageDirectory = "";
+        
+
+        string m_missingImagePath = "MissingImage.png";
+        string m_imageDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Images");
 
         public string m_selectedFilter = "All";
 
@@ -32,7 +34,7 @@ namespace lagerus_maximus
             set
             {
                 m_selectedFilter = value;
-                OnPropertyChanged();
+                OnPropertyChanged();                
             }
         }
 
@@ -135,7 +137,12 @@ namespace lagerus_maximus
         {
             CompleteCollection = m_xmlReaderWriter.LoadData();
 
-            foreach(Item item in CompleteCollection)
+            var path = System.IO.Path.GetDirectoryName(
+      System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+            path = path.Substring(6);
+
+            foreach (Item item in CompleteCollection)
             {
                 if (!File.Exists(item.ImagePath))
                 {

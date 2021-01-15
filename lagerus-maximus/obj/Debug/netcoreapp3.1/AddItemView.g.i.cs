@@ -119,7 +119,7 @@ namespace lagerus_maximus {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/lagerus-maximus;component/additemview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/lagerus-maximus;V1.0.0.0;component/additemview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\AddItemView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

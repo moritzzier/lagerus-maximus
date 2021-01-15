@@ -118,7 +118,7 @@ namespace lagerus_maximus {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/lagerus-maximus;component/edititemview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/lagerus-maximus;V1.0.0.0;component/edititemview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\EditItemView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
