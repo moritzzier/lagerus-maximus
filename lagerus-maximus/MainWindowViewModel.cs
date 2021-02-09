@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,12 +20,7 @@ namespace lagerus_maximus
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         
-
-        string m_missingImagePath = "MissingImage.png";
-        string m_imageDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Images");
-
         public string m_selectedFilter = "All";
 
         public string SelectedFilter
@@ -39,9 +35,6 @@ namespace lagerus_maximus
         }
 
         public ObservableCollection<string> m_categoryCollection = new ObservableCollection<string>();
-        /// <summary>
-        /// All available Categorys
-        /// </summary>
         public ObservableCollection<string> CategoryCollection
         {
             get => m_categoryCollection;
@@ -54,9 +47,6 @@ namespace lagerus_maximus
         }
 
         private ObservableCollection<Item> m_selectedCollection = new ObservableCollection<Item>();
-        /// <summary>
-        /// Die Collection an Items die Angezeigt werden soll, die einzige Collection die Sichbar ist. Items die gezéit werden soll hinzufügen, die die nicht entfernen
-        /// </summary>
         public ObservableCollection<Item> SelectedCollection
         {
             get => m_selectedCollection;
@@ -99,33 +89,103 @@ namespace lagerus_maximus
             }
         }
 
+
+        public string ExitIcon
+        {
+            get
+            {
+                string projectImageFolder = System.IO.Directory.GetCurrentDirectory();
+                projectImageFolder = Directory.GetParent(m_projectImageFolder).Parent.Parent.FullName;
+                return Path.Combine(m_projectImageFolder, Path.Combine("Images", "Exit.png"));
+            }
+        }
+
+        public string OptionsIcon
+        {
+            get
+            {
+                return Path.Combine(m_projectImageFolder, Path.Combine("Images", "Options.png"));
+            }
+        }
+
+        public string Icon
+        {
+            get
+            {
+                return Path.Combine(m_projectImageFolder, Path.Combine("Images", "LagerusIcon.png"));
+            }
+        }
+
+        public string AboutIcon
+        {
+            get
+            {
+                return Path.Combine(m_projectImageFolder, Path.Combine("Images", "About.png"));
+            }
+        }
+
+
+        private OptionsView m_optionsView;
         private AddItemView m_addItemView;
         private EditItemView m_editItemView;
         private AboutView m_aboutView;
-        private XmlReaderWriter m_xmlReaderWriter = new XmlReaderWriter();
-
-
+        private XmlReaderWriter m_xmlReaderWriter;
+        private string m_baseDirectory;
+        private string m_projectImageFolder;
+        private string m_missingImagePath;
+        private string m_clickToSelectPath;
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
         public ICommand CloseCommand { get; }
         public ICommand AboutCommand { get; }
-
-
+        public ICommand OptionsCommand { get; }       
         public ICommand SelectedFilterChangedCommand { get; }
 
         public MainWindowViewModel()
         {
-            AddCommand = new DelegateCommand<Item>(OnAddItem);
+            //AddCommand = new DelegateCommand<Item>(OnAddItem);
+            AddCommand = new DelegateCommand(OnAddItem);
             EditCommand = new DelegateCommand<Item>(OnEditItem);
             RemoveCommand = new DelegateCommand<Item>(OnRemoveItem);
             CloseCommand = new DelegateCommand(OnClose);
             AboutCommand = new DelegateCommand(OnAbout);
+            OptionsCommand = new DelegateCommand(OnOptions);
 
             SelectedFilterChangedCommand = new DelegateCommand<string>(OnSelectedFilterChanged);
-            CategoryCollection =  new ObservableCollection<string>() { "TEST", "Salben","Tabletten","Pillen", "Zäpfchen","Tee","Sonstige" };
+            CategoryCollection =  new ObservableCollection<string>() { "Salben","Tabletten","Pillen", "Zäpfchen","Tee","Sonstige" };
 
-            foreach(string s in CategoryCollection)
+            m_projectImageFolder = System.IO.Directory.GetCurrentDirectory();
+            m_projectImageFolder = Directory.GetParent(m_projectImageFolder).Parent.Parent.FullName;
+            m_missingImagePath = Path.Combine(m_projectImageFolder, Path.Combine("Images", "MissingImage.png"));
+            m_clickToSelectPath = Path.Combine(m_projectImageFolder, Path.Combine("Images", "ClickToSelectImage.png"));
+            
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            m_baseDirectory =  Path.Combine(path,"Lagerus Maximus");
+
+
+            if (!Directory.Exists(Path.Combine(m_baseDirectory)))
+            {
+                Directory.CreateDirectory(Path.Combine(m_baseDirectory));
+            }
+
+            if (!Directory.Exists(Path.Combine(m_baseDirectory, "Images")))
+            {
+                Directory.CreateDirectory(Path.Combine(m_baseDirectory, "Images"));
+            }
+
+            if (!File.Exists(Path.Combine(m_baseDirectory, "Save.xml")))
+            {
+                using (File.Create(Path.Combine(m_baseDirectory, "Save.xml")))
+                {
+
+                }
+            }
+
+            m_xmlReaderWriter = new XmlReaderWriter(m_baseDirectory, "Save.xml", "Images");
+
+            foreach (string s in CategoryCollection)
             {
                 FilterCollection.Add(s);
             }            
@@ -136,31 +196,92 @@ namespace lagerus_maximus
         public void Initialize()
         {
             CompleteCollection = m_xmlReaderWriter.LoadData();
-
-            var path = System.IO.Path.GetDirectoryName(
-      System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-
-            path = path.Substring(6);
-
+                       
             foreach (Item item in CompleteCollection)
             {
                 if (!File.Exists(item.ImagePath))
                 {
-                    item.ImagePath = Path.Combine(m_imageDirectory,m_missingImagePath);
+                    item.ImagePath = m_missingImagePath;
                 }
             }
         }
 
-        public void OnAddItem(Item item)
+        public void OnOptions()
         {
-            m_addItemView = new AddItemView();
-            m_addItemView.ViewModel.Item = new Item();
-            m_addItemView.ViewModel.CategoryCollection = CategoryCollection;
-            m_addItemView.ShowDialog();
+            m_optionsView = new OptionsView();
+            m_optionsView.ShowDialog();
 
-            if (m_addItemView.ViewModel.WindowClose == true)
+            if (m_optionsView.ViewModel.SaveOptions == true)
             {
-                return;
+                //Save
+                //Initialize();
+            }
+
+            m_optionsView.Close();
+        }
+
+        public void OnAddItem()
+        {
+            bool done = false;
+
+            Item item = new Item();
+            item.ImagePath = m_clickToSelectPath;
+            while (!done)
+            {
+                m_addItemView = new AddItemView();
+                m_addItemView.ViewModel.Item = item;
+                m_addItemView.ViewModel.CategoryCollection = CategoryCollection;
+                m_addItemView.ShowDialog();
+
+                item = m_addItemView.ViewModel.Item;
+
+                if (m_addItemView.ViewModel.WindowClose == true)
+                {
+                    return;
+                }
+
+                if (m_addItemView.ViewModel.Item.ImagePath == m_clickToSelectPath)
+                {
+                    m_addItemView.ViewModel.Item.ImagePath = m_missingImagePath;
+                }
+                else
+                {
+                    if(!File.Exists(Path.Combine(m_baseDirectory, Path.Combine("Images", item.Name + ".png"))))
+                    {
+                        File.Copy(m_addItemView.ViewModel.Item.ImagePath, Path.Combine(m_baseDirectory, Path.Combine("Images", item.Name + ".png")));
+                    }
+                }
+
+                List<Item> items = new List<Item>();
+                foreach (var i in CompleteCollection)
+                {
+                    items.Add(i);
+                }
+
+
+                done = true;
+                string output = "Following issue(s) prevent the item from being added:\n\n\n";
+
+                if (items.Exists(x => x.Name == item.Name))
+                {
+                    output += $"The name '{item.Name}' is already taken.\n\n";
+                }
+
+                if (items.Exists(x => x.ItemNumber == item.ItemNumber))
+                {
+                    output += $"The item number '{item.ItemNumber}' is already taken.\n\n";
+                }
+                if(output != "Following issue(s) prevent the item from being added:\n\n\n")
+                {
+                    if (MessageBoxResult.Yes == MessageBox.Show($"{output}Do you want to edit the item?", "Could not add new item", MessageBoxButton.YesNo, MessageBoxImage.Error))
+                    {
+                        done = false;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
             }
 
             CompleteCollection.Add(m_addItemView.ViewModel.Item);

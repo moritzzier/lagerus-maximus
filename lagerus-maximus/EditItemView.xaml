@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lagerus_maximus"
         mc:Ignorable="d"
-        Title="Edit Item" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" >
+        Title="Edit Item" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="{Binding Icon}">
 
     <Window.Resources>
         <local:EditItemViewModel x:Key="ViewModel" ></local:EditItemViewModel>
@@ -40,17 +40,17 @@
                 <RowDefinition Height="31"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock  Grid.Row="0" Name="nameTextBlock"  Height="25" Margin="3"  Text="Name:" IsManipulationEnabled="False"></TextBlock>
-            <TextBox  Grid.Row="1" Name="nameTextBox" Height="25"  Margin="3" Text="{Binding Item.Name}"></TextBox>
+            <TextBlock  Grid.Row="0" Name="nameTextBlock"  Height="25" Margin="5 3 10 3"  Text="Name:" IsManipulationEnabled="False"></TextBlock>
+            <TextBox  Grid.Row="1" Name="nameTextBox" Height="25"  Margin="5 3 10 3" Text="{Binding Item.Name}"></TextBox>
 
-            <TextBlock  Grid.Row="2" Name="quantityTextBlock"  Margin="3" Height="25" Text="Quantity:" IsManipulationEnabled="False">></TextBlock>
-            <TextBox  Grid.Row="3" Name="quantityTextBox"  Margin="3" Height="25" Text="{Binding Item.Quantity}"></TextBox>
+            <TextBlock  Grid.Row="2" Name="quantityTextBlock"  Margin="5 3 10 3" Height="25" Text="Quantity:" IsManipulationEnabled="False"></TextBlock>
+            <TextBox  Grid.Row="3" Name="quantityTextBox"   Margin="5 3 10 3" Height="25" Text="{Binding Item.Quantity}"></TextBox>
 
-            <TextBlock  Grid.Row="4" Name="categoryTextBlock" Height="25"  Margin="3" Text="Category:" IsManipulationEnabled="False">></TextBlock>
-            <ComboBox  Grid.Row="5"  Name="categoryTextBox"  Height="25"   Margin="3" SelectedItem="{Binding Item.Category}" ItemsSource="{Binding CategoryCollection}"></ComboBox>
+            <TextBlock  Grid.Row="4" Name="categoryTextBlock" Height="25"  Margin="5 3 10 3" Text="Category:" IsManipulationEnabled="False"></TextBlock>
+            <ComboBox  Grid.Row="5"  Name="categoryTextBox"  Height="25"   Margin="5 3 10 3" SelectedItem="{Binding Item.Category}" ItemsSource="{Binding CategoryCollection}"></ComboBox>
 
-            <TextBlock  Grid.Row="6" Name="itemNumberTextBlock" Height="25"  Margin="3" Text="Item Number:" IsManipulationEnabled="False">></TextBlock>
-            <TextBox  Grid.Row="7" Name="itemNumberTextBox" Height="25"  Margin="3" Text="{Binding Item.ItemNumber}"></TextBox>
+            <TextBlock  Grid.Row="6" Name="itemNumberTextBlock" Height="25"   Margin="5 3 10 3" Text="Item Number:" IsManipulationEnabled="False"></TextBlock>
+            <TextBox  Grid.Row="7" Name="itemNumberTextBox" Height="25"   Margin="5 3 10 3" Text="{Binding Item.ItemNumber}"></TextBox>
 
 
         </Grid>

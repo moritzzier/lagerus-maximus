@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:lagerus_maximus" xmlns:ie="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="MainWindow_Loaded">
+        Title="Lagerus Maximus" Height="450" Width="800" Loaded="MainWindow_Loaded" Icon="{Binding Icon}">
 
     <Window.Resources>
         <local:MainWindowViewModel x:Key="ViewModel" ></local:MainWindowViewModel>
@@ -25,12 +25,27 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Header="_Exit" Command="{Binding CloseCommand}"/>
+                <MenuItem Header="_Exit" Command="{Binding CloseCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding ExitIcon}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            
+
+            <!--<MenuItem Header="_Edit">
+                <MenuItem Header="_Options" Command="{Binding OptionsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding OptionsIcon}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>-->
+
             <MenuItem Header="_Help">
-                <!--<MenuItem Header="_Exit" Command="{Binding CloseCommand}"/>-->
-                <MenuItem Header="_About" Command="{Binding AboutCommand}"/>
+                <MenuItem Header="_About" Command="{Binding AboutCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding AboutIcon}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>           
             
         </Menu>

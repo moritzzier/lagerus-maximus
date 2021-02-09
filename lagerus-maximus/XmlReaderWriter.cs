@@ -14,8 +14,21 @@ using System.Xml.Serialization;
 
 namespace lagerus_maximus
 {
+    //string m_saveFileName, string m_imageDirectory,
     class XmlReaderWriter
     {
+        string m_saveFileName;
+        string m_imageDirectory;
+        string m_saveLocation;
+
+        public XmlReaderWriter(string saveDirectory,string saveFileName, string imageDirectory)
+        {
+            m_saveFileName = saveFileName;
+            m_imageDirectory=imageDirectory;
+            m_saveLocation =saveDirectory;
+        }
+
+
         public string SerializeObject(ObservableCollection<Item> items)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(items.GetType());
@@ -44,32 +57,61 @@ namespace lagerus_maximus
             }
         }
 
-
         public void SaveData(ObservableCollection<Item> items)
         {
-            if (!File.Exists("SaveTest.xml"))
+            if (!Directory.Exists(Path.Combine(m_saveLocation)))
             {
-                using (File.Create("SaveTest.xml"))
-                {
+                Directory.CreateDirectory(Path.Combine(m_saveLocation));
+            }
 
+            if (!Directory.Exists(Path.Combine(m_saveLocation, m_imageDirectory)))
+            {
+                Directory.CreateDirectory(Path.Combine(m_saveLocation, m_imageDirectory));
+            }
+
+            if (!File.Exists(Path.Combine(m_saveLocation, m_saveFileName)))
+            {
+                using (File.Create(Path.Combine(m_saveLocation, m_saveFileName)))
+                {
 
                 }
             }
 
-            File.WriteAllText("SaveTest.xml",SerializeObject(items));
+            if (!File.Exists(Path.Combine(m_imageDirectory, "MissingImage.png")))
+            {
+                
+
+                //using (File.Create(Path.Combine(m_imageDirectory, "MissingImage.png")))
+                //{
+
+                //}
+            }
+
+            File.WriteAllText(Path.Combine(m_saveLocation, m_saveFileName), SerializeObject(items));
         }
 
         public ObservableCollection<Item> LoadData()
         {
-            if(!File.Exists("SaveTest.xml"))
-            {
-                using (File.Create("SaveTest.xml"))
-                {
 
-                }                
+            if (!Directory.Exists(Path.Combine(m_saveLocation)))
+            {
+                Directory.CreateDirectory(Path.Combine(m_saveLocation));
             }
 
-            return XmlDeserialize(File.ReadAllText("SaveTest.xml"));
+            if (!Directory.Exists(Path.Combine(m_saveLocation, m_imageDirectory)))
+            {
+                Directory.CreateDirectory(Path.Combine(m_saveLocation, m_imageDirectory));
+            }
+
+            if (!File.Exists(Path.Combine(m_saveLocation, m_saveFileName)))
+            {
+                using (File.Create(Path.Combine(m_saveLocation, m_saveFileName)))
+                {
+
+                }       
+            }
+
+            return XmlDeserialize(File.ReadAllText(Path.Combine(m_saveLocation, m_saveFileName)));
         }
     }
 }

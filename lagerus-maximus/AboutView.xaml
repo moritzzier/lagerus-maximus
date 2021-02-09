@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lagerus_maximus"
         mc:Ignorable="d"
-        Title="About" Height="200" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
+        Title="About" Height="200" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded" Icon="{Binding AboutIcon}">
 
     <Window.Resources>
         <local:AboutViewModel x:Key="ViewModel" ></local:AboutViewModel>
@@ -44,7 +44,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <TextBox Text="{Binding CopyrightText}" IsManipulationEnabled="False" Margin="10" Padding="3" Height="50"></TextBox>
+            <TextBox Text="{Binding CopyrightText}" IsManipulationEnabled="False" Margin="10" Padding="3" IsReadOnly="True" Height="50"></TextBox>
         </Grid>
 
         <Button Grid.Row="2" Height="20" Width="75" Command="{Binding CloseCommand}" HorizontalAlignment="Right" Margin="10" Content="OK"></Button>

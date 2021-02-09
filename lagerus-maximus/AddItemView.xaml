@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lagerus_maximus" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="Add Item" Height="450" Width="800" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Add Item"   Height="450" Width="800" WindowStartupLocation="CenterOwner"  ResizeMode="NoResize" Icon="{Binding Icon}">
 
     <Window.Resources>
         <local:AddItemViewModel x:Key="ViewModel" ></local:AddItemViewModel>
@@ -40,17 +40,17 @@
                 <RowDefinition Height="31"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock  Grid.Row="0" Name="nameTextBlock"  Height="25" Margin="3"  Text="Name:" IsManipulationEnabled="False"></TextBlock>
-            <TextBox  Grid.Row="1" Name="nameTextBox" Height="25"  Margin="3" Text="{Binding Item.Name}"></TextBox>
+            <TextBlock  Grid.Row="0" Name="nameTextBlock"  Height="25" Margin="5 3 10 3"  Text="Name:" IsManipulationEnabled="False"></TextBlock>
+            <TextBox  Grid.Row="1" Name="nameTextBox" Height="25"  Margin="5 3 10 3" Text="{Binding Item.Name}"></TextBox>
 
-            <TextBlock  Grid.Row="2" Name="quantityTextBlock"  Margin="3" Height="25" Text="Quantity:" IsManipulationEnabled="False">></TextBlock>
-            <TextBox  Grid.Row="3" Name="quantityTextBox"  Margin="3" Height="25" Text="{Binding Item.Quantity}"></TextBox>
+            <TextBlock  Grid.Row="2" Name="quantityTextBlock"  Margin="5 3 10 3" Height="25" Text="Quantity:" IsManipulationEnabled="False">></TextBlock>
+            <TextBox  Grid.Row="3" Name="quantityTextBox" Margin="5 3 10 3" Height="25" Text="{Binding Item.Quantity}"></TextBox>
 
-            <TextBlock  Grid.Row="4" Name="categoryTextBlock" Height="25"  Margin="3" Text="Category:" IsManipulationEnabled="False">></TextBlock>
-            <ComboBox  Grid.Row="5"  Name="categoryTextBox"  Height="25"   Margin="3" SelectedItem="{Binding Item.Category}" ItemsSource="{Binding CategoryCollection}"></ComboBox>
+            <TextBlock  Grid.Row="4" Name="categoryTextBlock" Height="25"  Margin="5 3 10 3" Text="Category:" IsManipulationEnabled="False">></TextBlock>
+            <ComboBox  Grid.Row="5"  Name="categoryTextBox"  Height="25"   Margin="5 3 10 3" SelectedItem="{Binding Item.Category}" ItemsSource="{Binding CategoryCollection}"></ComboBox>
 
-            <TextBlock  Grid.Row="6" Name="itemNumberTextBlock" Height="25"  Margin="3" Text="Item Number:" IsManipulationEnabled="False">></TextBlock>
-            <TextBox  Grid.Row="7" Name="itemNumberTextBox" Height="25"  Margin="3" Text="{Binding Item.ItemNumber}"></TextBox>            
+            <TextBlock  Grid.Row="6" Name="itemNumberTextBlock" Height="25"  Margin="5 3 10 3" Text="Item Number:" IsManipulationEnabled="False">></TextBlock>
+            <TextBox  Grid.Row="7" Name="itemNumberTextBox" Height="25"  Margin="5 3 10 3" Text="{Binding Item.ItemNumber}"></TextBox>            
 
         </Grid>
 
@@ -62,7 +62,11 @@
             </Grid.RowDefinitions>
             
             <Image Grid.Row="0" Height="200" Margin="5" Source="{Binding Item.ImagePath}">
-                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding LoadImageCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </Image>
             <Button Grid.Row="1" Height="25" Width="150" Padding="3" Margin="5" Content="Load Image" Command="{Binding LoadImageCommand}" ></Button>
             <!--<TextBox Grid.Row="1" Height="25" Padding="3" Margin="3" Text="{Binding Item.ImagePath}" ></TextBox>-->

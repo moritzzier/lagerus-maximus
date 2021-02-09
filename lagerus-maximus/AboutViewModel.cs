@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -28,11 +29,21 @@ namespace lagerus_maximus
             }
         }
 
+        public string AboutIcon
+        {
+            get
+            {
+                string projectImageFolder = System.IO.Directory.GetCurrentDirectory();
+                projectImageFolder = Directory.GetParent(projectImageFolder).Parent.Parent.FullName;
+                return Path.Combine(projectImageFolder, Path.Combine("Images", "About.png"));
+            }
+        }
+
         public string CopyrightText
         {
             get
             {
-                return $"IT218 Schulprojekt von Melvin Scherer und Moritz Zier.";
+                return $"IT218 Schoolproject made by Melvin Scherer and Moritz Zier.";
             }
             set { }
         }

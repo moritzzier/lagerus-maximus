@@ -28,9 +28,6 @@ namespace lagerus_maximus
 
         public Item()
         {
-            ImagePath = @"D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\Images\MissingImage.png";
-                //new BitmapImage(new Uri(@"D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\Images\MissingImage.png"));
-                //                new Bitmap(@"D:\Users\MScheerer\source\repos\lagerus-maximus\lagerus-maximus\Images\MissingImage.png");
         }
 
         public Item(Item item)
@@ -39,9 +36,6 @@ namespace lagerus_maximus
             Quantity = item.Quantity;
             Category= item.Category;
             ItemNumber = item.ItemNumber;
-
-
-
             ImagePath = item.ImagePath;
 
         }

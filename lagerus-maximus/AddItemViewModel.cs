@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -49,16 +50,35 @@ namespace lagerus_maximus
             }
         }
 
+        public string Icon
+        {
+            get
+            {
+                return Path.Combine(m_projectImageFolder, Path.Combine("Images", "LagerusIcon.png"));
+            }
+        }
+
         public ICommand AddItemCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand LoadImageCommand { get; }
 
+        private string m_projectImageFolder;
+
         public AddItemViewModel()
         {
+            m_projectImageFolder = System.IO.Directory.GetCurrentDirectory();
+            m_projectImageFolder = Directory.GetParent(m_projectImageFolder).Parent.Parent.FullName;
+
             AddItemCommand = new DelegateCommand(OnAddItem);
             CancelCommand = new DelegateCommand(OnCancelItem);
             LoadImageCommand = new DelegateCommand(OnLoadImage);
         }
+
+        public void Initialize()
+        {
+            Item = Item;
+        }
+
 
         public void OnLoadImage()
         {
